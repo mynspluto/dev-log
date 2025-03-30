@@ -13,7 +13,7 @@
 - 사용예시
   - `& "C:\Program Files\MongoDB\mongosh-2.4.2-win32-x64\bin\mongosh.exe" --port 27017`
   - 접속 후 watch 사용을 위해
-    ```javascript
+    ```sh
     rs.initiate({
       _id: "rs0",
       members: [
