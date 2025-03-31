@@ -1,5 +1,8 @@
 # BIOS 기반 리눅스 부팅 과정 (MBR 방식)
 
+### 링크
+https://www.youtube.com/watch?v=IXA0GNTLf_Q&list=PLHh55M_Kq4OAPznDEcgnkQsbjgvG-QFBR&index=1
+
 ### BIOS 펌웨어 실행
 - 전원이 켜지면 **BIOS**의 펌웨어를 메모리에 로드하고, **CPU**가 이를 실행합니다.
 - **POST** (Power-On Self Test)를 수행하여 하드웨어 상태를 점검하고, 정상적이면 부팅 디스크를 선택하여 부팅을 시작합니다.
@@ -32,6 +35,10 @@
 
 ### POST
 - **BIOS**가 전원을 켜면 **하드웨어 상태**를 점검하는 과정입니다. 모든 것이 정상적이면 부팅 디스크를 찾아 부팅을 시작합니다.
+
+### boot partition
+
+### root partition
 
 ### 부팅 순서 요약
 - **BIOS 펌웨어 → MBR 512바이트 → 1차 부트로더 → 부팅 파티션 찾기 → 2차 부트로더(/boot/grub) → /boot/kernel → OS 실행**
