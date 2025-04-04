@@ -13,32 +13,35 @@ import org.springframework.stereotype.Component;
 public class ArgumentResolverAspect {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    // RequestBody 처리를 위한 구체적인 포인트컷
-    @Around("execution(* org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(..))")
-    public Object logRequestBodyResolver(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("8. [ArgumentResolver] @RequestBody 처리 시작");
-        Object result = joinPoint.proceed();
-        log.info("8. [ArgumentResolver] @RequestBody 처리 완료: {}",
-                result != null ? result.getClass().getSimpleName() : "null");
-        return result;
-    }
-
-    // HandlerMethodArgumentResolverComposite 처리
-    @Around("execution(* org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(..))")
-    public Object logCompositeResolver(ProceedingJoinPoint joinPoint) throws Throwable {
-        MethodParameter parameter = (MethodParameter)joinPoint.getArgs()[0];
-        log.info("8. [ArgumentResolver] 컴포지트 처리 시작: {}", parameter.getParameterName());
-        Object result = joinPoint.proceed();
-        log.info("8. [ArgumentResolver] 컴포지트 처리 완료");
-        return result;
-    }
-
-    // ServletInvocableHandlerMethod에서의 파라미터 해석
-    @Around("execution(* org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(..))")
-    public Object logMethodInvocation(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("8. [ArgumentResolver] 컨트롤러 메서드 호출 준비 시작");
-        Object result = joinPoint.proceed();
-        log.info("8. [ArgumentResolver] 컨트롤러 메서드 호출 준비 완료");
-        return result;
-    }
+//    @Around("execution(* org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(..))")
+//    public Object logRequestBodyProcessing(ProceedingJoinPoint joinPoint) throws Throwable {
+//        log.info("8. [ArgumentResolver] @RequestBody 처리 시작");
+//
+//        // 메서드 파라미터 정보 출력
+//        Object[] args = joinPoint.getArgs();
+//        if (args != null && args.length > 0 && args[0] instanceof MethodParameter) {
+//            MethodParameter methodParameter = (MethodParameter) args[0];
+//            log.info("   - 대상 파라미터: {}.{}",
+//                    methodParameter.getDeclaringClass().getSimpleName(),
+//                    methodParameter.getParameterName());
+//        }
+//
+//        // 실제 메서드 실행
+//        Object result = joinPoint.proceed();
+//
+//        // 변환 결과 출력
+//        log.info("8. [ArgumentResolver] @RequestBody 처리 완료: {} 타입으로 변환됨",
+//                result != null ? result.getClass().getSimpleName() : "null");
+//
+//        return result;
+//    }
+//
+//    // HTTP 메시지 컨버터의 읽기 처리 로깅
+//    @Around("execution(* org.springframework.http.converter.HttpMessageConverter.read(..))")
+//    public Object logMessageConverterReading(ProceedingJoinPoint joinPoint) throws Throwable {
+//        log.info("8. [ArgumentResolver] HttpMessageConverter 읽기 시작");
+//        Object result = joinPoint.proceed();
+//        log.info("8. [ArgumentResolver] HttpMessageConverter 읽기 완료");
+//        return result;
+//    }
 }

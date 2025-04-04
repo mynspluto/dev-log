@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // 1. 요청 시작부터 필터까지의 로깅을 위한 필터
-@Component
+//@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RequestLoggingFilter implements Filter {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
