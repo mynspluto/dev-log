@@ -12,11 +12,29 @@ import org.springframework.stereotype.Component;
 public class HandlerAdapterAspect {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Around("execution(* org.springframework.web.servlet.HandlerAdapter.handle(..))")
-    public Object logHandlerAdapter(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("7. [HandlerAdapter] 핸들러 어댑터 호출");
+    // 구체적인 구현체 직접 타겟팅
+    @Around("execution(* org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(..))")
+    public Object logRequestMappingHandlerAdapter(ProceedingJoinPoint joinPoint) throws Throwable {
+        log.info("7. [HandlerAdapter] RequestMappingHandlerAdapter 호출");
         Object result = joinPoint.proceed();
-        log.info("11. [HandlerAdapter] 핸들러 어댑터 완료");
+        log.info("11. [HandlerAdapter] RequestMappingHandlerAdapter 완료");
+        return result;
+    }
+
+    // 다른 어댑터 구현체들도 포함
+    @Around("execution(* org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(..))")
+    public Object logHttpRequestHandlerAdapter(ProceedingJoinPoint joinPoint) throws Throwable {
+        log.info("7. [HandlerAdapter] HttpRequestHandlerAdapter 호출");
+        Object result = joinPoint.proceed();
+        log.info("11. [HandlerAdapter] HttpRequestHandlerAdapter 완료");
+        return result;
+    }
+
+    @Around("execution(* org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(..))")
+    public Object logSimpleControllerHandlerAdapter(ProceedingJoinPoint joinPoint) throws Throwable {
+        log.info("7. [HandlerAdapter] SimpleControllerHandlerAdapter 호출");
+        Object result = joinPoint.proceed();
+        log.info("11. [HandlerAdapter] SimpleControllerHandlerAdapter 완료");
         return result;
     }
 }
