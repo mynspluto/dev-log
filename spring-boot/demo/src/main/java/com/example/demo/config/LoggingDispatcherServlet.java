@@ -17,21 +17,23 @@ public class LoggingDispatcherServlet extends DispatcherServlet {
 
     @Override
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        log.info("4. [DispatcherServlet] 요청 수신");
+        log.info("2. [Tomcat => DispatcherServlet] 받음");
         try {
+            // Handler Mapping 호출, Handler Adapter 실행
             super.doDispatch(request, response);
         } finally {
-            log.info("17. [DispatcherServlet] 응답 처리 완료");
+            log.info("10. [HandlerAdapter => DispatcherServlet] 받음");
         }
     }
 
     @Override
     protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
+        log.info("3. [DispatcherServlet => HandlerMapping] 보냄");
         HandlerExecutionChain chain = super.getHandler(request);
         if (chain != null) {
-            log.info("5. [HandlerMapping] 핸들러 매핑 완료: {}", chain.getHandler());
+            log.info("4. [HandlerMapping => DispatcherServlet] 받음: {}", chain.getHandler());
         } else {
-            log.warn("5. [HandlerMapping] 적합한 핸들러를 찾지 못함");
+            log.warn("4. [HandlerMapping => DispatcherServlet] 받음: 적합한 핸들러를 찾지 못함");
         }
         return chain;
     }

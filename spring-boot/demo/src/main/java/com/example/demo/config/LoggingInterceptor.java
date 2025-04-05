@@ -1,4 +1,3 @@
-// 3. 인터셉터 처리 로깅
 package com.example.demo.config;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        log.info("6. [Interceptor] preHandle() 실행");
+        log.info("5. [DispatcherServlet => HandlerAdapter] HandlerInterceptor preHandle()");
 
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -31,7 +30,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        log.info("12. [Interceptor] postHandle() 실행");
+        log.info("10. [HandlerAdapter => DispatcherServlet] HandlerInterceptor postHandle()");
 
         if (modelAndView != null) {
             log.debug("뷰: {}, 모델 크기: {}",
@@ -45,7 +44,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
         long startTime = (Long) request.getAttribute("startTime");
         long endTime = System.currentTimeMillis();
 
-        log.info("17. [Interceptor] afterCompletion() 실행, 소요시간: {}ms", (endTime - startTime));
+        log.info("10. [HandlerAdapter => DispatcherServlet] HandlerInterceptor afterCompletion(), 소요시간: {}ms", (endTime - startTime));
 
         if (ex != null) {
             log.error("예외 발생: {}", ex.getMessage(), ex);

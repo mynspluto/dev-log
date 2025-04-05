@@ -23,8 +23,6 @@ import jakarta.servlet.Filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// 1. 요청 시작부터 필터까지의 로깅을 위한 필터
-//@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RequestLoggingFilter implements Filter {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -34,9 +32,7 @@ public class RequestLoggingFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-        log.info("1. [클라이언트 요청] 시작: {} {}", httpRequest.getMethod(), httpRequest.getRequestURI());
-        log.info("2. [서블릿 컨테이너] 요청 수신");
-        log.info("3. [필터 체인] 시작");
+        log.info("1. [클라이언트 요청] 수신: {} {}", httpRequest.getMethod(), httpRequest.getRequestURI());
 
         // 요청 헤더 로깅
         Collections.list(httpRequest.getHeaderNames()).forEach(headerName ->
@@ -53,10 +49,10 @@ public class RequestLoggingFilter implements Filter {
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper((HttpServletResponse) response);
 
         try {
-            // 필터 체인 계속 진행
-            chain.doFilter(requestWrapper, responseWrapper);
+            log.info("2. [Tomcat => DispatcherServlet] 보냄");
+            chain.doFilter(requestWrapper, responseWrapper); //그 밑의 컨트롤러, 서비스, 레포지토리 호출되는 진입점
         } finally {
-            log.info("18. [필터 체인] 응답 처리 완료");
+            log.info("11. [DispatcherServlet => Tomcat] 받음");
 
             // 응답 상태 및 헤더 로깅
             log.debug("응답 상태: {}", responseWrapper.getStatus());
@@ -75,7 +71,7 @@ public class RequestLoggingFilter implements Filter {
                 }
             }
 
-            log.info("19. [클라이언트 응답] 완료");
+            log.info("12. [클라이언트 요청] 발신");
 
             // 반드시 원래 응답으로 복사해야 함
             responseWrapper.copyBodyToResponse();

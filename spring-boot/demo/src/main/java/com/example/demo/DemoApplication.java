@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class DemoApplication {
 
 	public static void main(String[] args) {
