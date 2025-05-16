@@ -58,6 +58,9 @@ SELECT
     SUM(amount) OVER (ORDER BY date) AS running_total
 FROM transactions;
 ```
+SUM(amount) OVER (ORDER BY date) 각 행 누적합
+SUM(amount) OVER () 전체 행에 같은 값
+SUM(amount) 결과 한 줄만
 날짜순으로 거래 금액의 누적 합계를 계산합니다.
 
 ### 6. 이동 평균 계산
