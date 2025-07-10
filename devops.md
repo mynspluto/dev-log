@@ -24,3 +24,6 @@ IaC: idempotency, declarative config
 모니터링: 지표(metric), 로그(log), 트레이싱(trace)
 보안: least privilege, secrets, vulnerability scan
 장애 대응: 이중화, failover, self-healing
+
+# 쿠버네티스 doc
+https://kubernetes.io/docs/home/
