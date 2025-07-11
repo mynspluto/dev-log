@@ -50,3 +50,5 @@ NLB → Node-1:31234 → kube-proxy → pod-B (Node-2로 네트워크 전달)
 NLB → Node-2:31234 → kube-proxy → pod-A (Node-1로 네트워크 전달)
 NLB → Node-3:31234 → kube-proxy → pod-C (같은 노드)
 ```
+
+NLB(각 워커 노드 IP로 분기) => 워커 노드가 externalTrafficPolicy: Cluster인 경우 자신의 노드안에서 처리할 수 있는 Pod가 있으며 readiness 정상이면 자신이 처리하며 처리 안되는 경우만 다른 노드로 보냄, externalTrafficPolicy: Local인 경우 본인의 노드안에서만 처리
