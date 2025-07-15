@@ -33,10 +33,8 @@ spec:
   selector:
     app: my-app
 ```
-L4 라우팅으로 포트 기반 분기
-AWS Load Balancer Controller 필요
-내부적으로 NodePort 타입의 서비스를 생성하여 클러스터 전체의 Pod 목록을 가져와서 클라우드의 로드밸런서로 분기
-노드 내 kube-proxy가 NodePort를 감시하고, 파드 IP와 포트로 요청을 라우팅
+AWS에서는 type: LoadBalancer 서비스를 만들면, 클라우드 컨트롤러가 L4 로드밸런서(NLB)를 생성하고, 각 노드의 NodePort로 트래픽을 전달합니다.
+내부적으로는 NodePort 서비스가 자동 생성되며, 로드밸런서는 노드 단위로 분기한 후, kube-proxy를 통해 실제 Pod로 트래픽이 전달됩니다.
 
 ```yml
 # Service의 NodePort(31234)로 오는 트래픽을 모든 파드로 분산
