@@ -26,3 +26,25 @@ HTTPS는 웹에서 사용되는 보안 통신 방법의 표준
 
 # SSL 인증서
 흔히 웹사이트에 설치하는 공개키 인증서를 'SSL 인증서'라고 부르지만 실제로는 TLS 프로토콜을 위한 인증서
+
+# AWS 상 https 인증서
+
+## ec2 단독
+EC2 내 Nginx 또는 Spring Boot 내장 톰캣 등 직접 설정
+인증서 갱신 및 보안 설정 자동화 어려움, 무중단 배포 복잡
+
+## alb + ec2
+ALB에서 AWS Certificate Manager(ACM)으로 관리 및 SSL 종료
+ACM에서 자동 발급 및 갱신, ALB에 자동 적용
+
+## alb + eks
+ALB에서 ACM 인증서로 SSL 종료 (AWS Load Balancer Controller 사용)
+ALB 비용 발생, 설정 복잡도 있음
+
+## eks 단독
+Nginx Ingress Controller에서 TLS Secret으로 인증서 적용
+ALB 부재로 인해 확장성이나 AWS 관리형 기능 일부 제한
+
+## 인증서 유료, 무료 차이
+유료로 구매시 회사 정보를 기입하고 구매하기 때문에 브라우저에서 인증서 조회시 회사와 조직에 대한 정보 조회 가능
+무료의 경우 도메인 검증만 가능
