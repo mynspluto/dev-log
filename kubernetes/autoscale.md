@@ -66,6 +66,7 @@ spec:
 
 ## 프로메테우스 어댑터
 프로메테우스에 쿼리를 던져 메트릭 확인
+configMap, Prometheus Adapter Pod(Deployment)가 필요
 ```yml
 apiVersion: v1
 kind: ConfigMap
