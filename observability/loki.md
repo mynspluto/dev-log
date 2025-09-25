@@ -4,7 +4,7 @@ elasticsearch와 loki는 로그를 저장할 때 사용
 elasticsearch는 인덱스 구조가 역색인
 '단어1' -> doc1, doc2, doc3
 '단어2' -> doc2, doc4
-json 구조로 저장하기에 doc 조회후 정규표현식이나 파싱 로직 불필요요
+json 구조로 저장하기에 doc 조회후 정규표현식이나 파싱 로직 불필요
 
 loki는 라벨에 대한 조합을 해싱하여 해시테이블 구조로 검색 => hash(라벨의 조합) -> log1, log2, log3
 hash(log_level: 'ERROR', api_server: 'payment-api-server') - > 'ERROR LOG pament-api-server thread-id-11: payment rejected because ...', '~~', '~~'
